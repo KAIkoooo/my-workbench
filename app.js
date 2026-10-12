@@ -234,69 +234,6 @@ function calDay(y,m,d){
    +'<div class="actions"><button class="btn ghost" onclick="closeSheet()">关闭</button></div>');
 }
 
-/* ============ 处女座专享空间 ============ */
-const V_LUCK_COLORS=[['香槟金','#C9A959'],['宝石蓝','#1D5BA5'],['翡翠绿','#0F8A5F'],['珊瑚粉','#E58B9C'],['月牙白','#EAE6D9'],['琥珀橙','#D9822B'],['紫水晶','#8A5AB5'],['青碧色','#2A9D8F'],['勃艮第红','#8E2A35'],['雾霾蓝','#7C93B0']];
-const V_DIRS=['正东','正南','正西','正北','东南','东北','西南','西北'];
-const V_MATCH=['金牛座','摩羯座','巨蟹座','天蝎座','双鱼座','处女座'];
-const V_TIPS=['细节是你的超能力，但今天不妨放过那个不完美的句号。','把桌面收拾干净，思路会跟着清爽起来。','今天适合复盘：翻翻上周的清单，划掉已完成的事很有成就感。','别急着回复让你不舒服的消息，先喝口水再决定。','健康运在线，午休二十分钟胜过两杯咖啡。','财运小吉：适合整理账单和订阅，砍掉一项不必要的开支。','灵感藏在小事里，通勤路上留意一下路边的招牌文案。','与其纠结选项，不如相信第一直觉，今天它格外准。','给很久没联系的朋友发条消息，会有温暖的回音。','今天执行力强，把拖了三天的那件小事先干掉。','感情上别用放大镜看对方的缺点，你也希望被温柔对待。','学习运不错，适合啃一章难啃的书或文档。','记得抬头活动颈椎，你低头太久了。','购物欲上头时，先把东西放购物车睡一晚。','表达时少说「我觉得」，多说「我们试试」，效果更好。','晚上早点关灯，明天的好运从今晚的睡眠开始。'];
-const V_DETAIL={
- 爱情:[['感情运平淡，别把加班情绪带回家，一句问候就能回暖。','单身者桃花潜伏在老朋友里，多参加一次聚会就多一分可能。'],['感情稳步升温，适合认真聊一次未来，把心里话说出口。','心动信号明显，别再装作不在意，主动一点故事就开始了。'],['爱情运势高涨，无论相伴或初识，今天你格外有魅力，坦诚会带来惊喜。']],
- 事业:[['琐事缠身的一天，先做最重要的三件，其余学会放一放。','状态一般，适合整理文件与收尾，不宜开新坑。'],['思路清晰、执行顺畅，适合汇报、提案或推进搁置的计划。','贵人运不错，主动请教前辈，一句话可能点醒你。'],['事业运大开，关键时刻站出来，你的表现会被看见并记住。']],
- 财运:[['守住钱包，非必要不剁手，今天的冲动消费多半会后悔。','财运平平，稳字当头，不宜追涨杀跌。'],['正财稳定，偏财小有惊喜，适合盘点资产、核对账单。','有一笔进账或优惠在路上，之前垫付的钱有望收回。'],['财运亮眼，谈钱的事今天推进最顺，投资决策可多一分底气。']],
- 健康:[['久坐是今天的隐形杀手，每小时起身活动三分钟。','注意肠胃，三餐规律，少冰少辣。'],['精力恢复中，早睡半小时，第二天状态肉眼可见变好。','适合轻量运动：拉伸、散步、八段锦都是好选择。'],['活力满格，去运动吧，出汗之后的清爽今天格外明显。','身体状态在线，适合把搁置的锻炼计划捡起来。']]
-};
-function virgoScore(d){const r=rng('cancer-'+d);return 68+Math.floor(r()*32)}
-function virgoDetail(all,scores,r){
-  const band=s=>s>=80?2:s>=60?1:0;
-  let txt='综合运势 '+all+' 分，'+(all>=90?'大吉日，放手去做想做的事':all>=80?'状态上扬，顺水行舟':all>=70?'平稳中有小确幸':all<62?'低开高走的一天，稳住节奏别硬拼':'中规中矩，守成为主')+'。';
-  scores.forEach(s=>{const b=V_DETAIL[s[0]][band(s[1])];txt+=(r()<.5?b[0]:b[1]||b[0])});
-  return txt;
-}
-function renderVirgo(){
-  const r=rng('cancer-'+ymd());
-  const all=68+Math.floor(r()*32);
-  const scores=[['爱情',50+Math.floor(r()*50),'💕'],['事业',55+Math.floor(r()*45),'📈'],['财运',45+Math.floor(r()*55),'💰'],['健康',55+Math.floor(r()*45),'🏃']];
-  const col=V_LUCK_COLORS[Math.floor(r()*V_LUCK_COLORS.length)];
-  const num=1+Math.floor(r()*9);
-  const dir=V_DIRS[Math.floor(r()*8)];
-  const match=V_MATCH[Math.floor(r()*V_MATCH.length)];
-  const tip=V_TIPS[Math.floor(r()*V_TIPS.length)];
-  const sf=Math.round(all/20);
-  const stars='★'.repeat(sf)+'☆'.repeat(5-sf);
-  const td=new Date();
-  const isVgo=(td.getMonth()===5&&td.getDate()>=22)||(td.getMonth()===6&&td.getDate()<=22);
-  $('virgoCard').innerHTML=
-   '<div class="v-hd"><b>♋ 巨蟹座专享空间</b><span>6.22 - 7.22'+(isVgo?' · 巨蟹月 ✨':'')+'</span></div>'
-   +'<div class="v-sum"><div class="sc"><b>'+all+'</b><span>综合运势</span></div>'
-   +'<div class="v-bars">'
-   +'<div class="v-bar" style="justify-content:space-between"><span class="stars">'+stars+'</span><span class="meta" style="font-size:10.5px">'+ymd()+' 更新</span></div>'
-   +scores.map(s=>'<div class="v-bar"><span class="vn">'+s[2]+' '+s[0]+'</span><span class="vt"><i style="width:'+s[1]+'%"></i></span><span class="vv">'+s[1]+'%</span></div>').join('')
-   +'</div></div>'
-   +'<div class="v-luck">'
-   +'<div><span>幸运色</span><b><i class="sw" style="background:'+col[1]+'"></i>'+col[0]+'</b></div>'
-   +'<div><span>幸运数字</span><b>'+num+'</b></div>'
-   +'<div><span>幸运方位</span><b>'+dir+'</b></div>'
-   +'<div><span>速配星座</span><b>'+match+'</b></div>'
-   +'</div>'
-   +'<div class="v-tip"><b>今日提示 · </b>'+tip+'</div>'
-   +'<div class="v-box"><b class="vb-t">📖 今日运势详解</b>'+virgoDetail(all,scores,r)+'</div>'
-   +'<div class="v-box"><b class="vb-t">📈 近期运势参考（未来7天）</b><div class="v-week">'+virgoWeek()+'</div></div><p class="v-note">生日：公历 7 月 9 日。分数与提示由本地日期种子生成，仅作娱乐，不代表真实预测。</p>';
-}
-function virgoWeek(){
-  const wd='日一二三四五六';let h='',prev=virgoScore(ymd());
-  for(let i=0;i<7;i++){
-    const d=new Date(Date.now()+i*86400000),ds=ymd(d);
-    const s=virgoScore(ds);
-    const tr=s>prev?'t-up':s<prev?'t-dn':'';
-    const ar=s>prev?'▲':s<prev?'▼':'—';
-    h+='<div><span>'+(i===0?'今天':(d.getMonth()+1)+'/'+d.getDate())+'</span>'
-     +'<b class="'+tr+'">'+s+ar+'</b>'
-     +'<span class="vb"><i style="width:'+s+'%"></i></span></div>';
-    prev=s;
-  }
-  return h;
-}
-
 const FIT_TYPES=['跑步','骑行','深圳地铁'];
 let fitType='跑步';
 function renderFitTypes(){$('fitTypes').innerHTML=FIT_TYPES.map(t=>'<button class="'+(fitType===t?'on':'')+'" onclick="fitType=\''+t+'\';renderFit()">'+t+'</button>').join('');const isMetro=fitType==='深圳地铁';$('fitForm').style.display=isMetro?'none':'';$('metroSection').style.display=isMetro?'block':'none';$('fitStats').style.display=isMetro?'none':'';$('fitWeek').style.display=isMetro?'none':'';$('fitList').style.display=isMetro?'none':'';if(isMetro)loadMetro()}
@@ -526,7 +463,7 @@ function bindGestures(id,vm,applyFn){
   const el=$(id);if(!el)return;
   const pointers=[];let pinch=null;
   el.addEventListener('pointerdown',e=>{
-    el.setPointerCapture(e.pointerId);
+    if(e.pointerType==='touch'&&!el.classList.contains('map-active'))return;el.setPointerCapture(e.pointerId);
     pointers.push({id:e.pointerId,x:e.clientX,y:e.clientY,lx:e.clientX,ly:e.clientY});
     if(pointers.length===2){
       const [a,c]=pointers;
@@ -563,7 +500,7 @@ function bindGestures(id,vm,applyFn){
   el.addEventListener('pointerup',end);
   el.addEventListener('pointercancel',end);
   el.addEventListener('wheel',e=>{
-    e.preventDefault();
+    if(!el.classList.contains('map-active'))return;e.preventDefault();
     const rect=el.getBoundingClientRect();
     const cx=e.clientX-rect.left,cy=e.clientY-rect.top;
     const f=e.deltaY>0?0.9:1.1;
@@ -599,6 +536,7 @@ function renderFit(){
 }
 
 /* 生日排盘采用北京时间 UTC+8；节气分月；不作真太阳时修正。 */
+function toggleMap(btn){const active=!$('metroCanvas').classList.contains('map-active');['metroCanvas','metroCanvas2'].forEach(id=>$(id).classList.toggle('map-active',active));btn.textContent=active?'退出地图操作（恢复页面滚动）':'开启地图操作'}
 function renderLiuri(){
  const birth=Solar.fromYmdHms(1999,7,9,0,59,0).getLunar().getEightChar();birth.setSect(2);
  const parts=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Shanghai',year:'numeric',month:'numeric',day:'numeric'}).formatToParts(new Date());
@@ -615,6 +553,25 @@ function renderLiuri(){
  const he={子:'丑',丑:'子',寅:'亥',亥:'寅',卯:'戌',戌:'卯',辰:'酉',酉:'辰',巳:'申',申:'巳',午:'未',未:'午'};
  pillars.forEach((v,i)=>{const bz=v[1];if((zhi.indexOf(dz)-zhi.indexOf(bz)+12)%12===6)relations.push(['年','月','日','时'][i]+'支 '+bz+' 与流日 '+dz+' 相冲');if(he[dz]===bz)relations.push(['年','月','日','时'][i]+'支 '+bz+' 与流日 '+dz+' 六合')});
  $('liuriCard').innerHTML='<div class="v-hd"><b>八字 · 每日干支</b><span>北京时间</span></div><p class="v-note">公历 1999-07-09 00:59 · 男 · 贵州黔南瓮安</p><div class="birth-grid">'+pillars.map((v,i)=>'<div><span>'+['年柱','月柱','日柱','时柱'][i]+'</span><b>'+v+'</b></div>').join('')+'</div><p>日主 <b>'+birth.getDayGan()+element[a]+'</b> · 今日 <b>'+daily.getDay()+'</b> · 流日天干十神 <b>'+ss+'</b></p><div class="v-box"><b class="vb-t">今日参考</b>'+tips[ss]+'</div><div class="v-box"><b class="vb-t">地支关系</b>'+(relations.join('<br>')||'今日流日支与四柱地支无六合或六冲。')+'</div><p class="v-note">采用北京时间 UTC+8、节气分月，日界按零点；出生地不用于真太阳时修正。仅展示传统历法关系与娱乐提示，不据此判断吉凶、健康或投资，也不沿用原版的身弱、喜忌结论。</p>';
+}
+const AI_URL='https://worutterfly-909d.hifteidiruofjeosud867.workers.dev/api/reading';
+let aiToken='',aiBusy=false,aiResult=null;
+function renderVirgo(){
+ $('virgoCard').innerHTML='<div class="v-hd"><b>♋ 今日 AI 解读</b><span>巨蟹座 · 壬水日主</span></div><p class="v-note">根据你的四柱与今日干支生成，结果仅供娱乐。生成时会把排盘资料发送至 Cloudflare Workers AI。</p><div class="row" style="gap:8px;margin-top:12px"><button id="aiGenerate" class="btn" onclick="generateReading()" '+(aiBusy?'disabled':'')+'>'+(aiBusy?'正在生成…':'生成今日 AI 解读')+'</button><button class="btn ghost" onclick="aiSettings()">设置密钥</button></div><p id="aiStatus" class="v-note" role="status"></p><div id="aiText" style="white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.85;margin-top:12px"></div><p id="aiMeta" class="v-note"></p>';
+ if(aiResult){$('aiText').textContent=aiResult.text;$('aiMeta').textContent='模型：'+aiResult.model+' · 生成于 '+new Date(aiResult.generatedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'})}
+}
+function aiSettings(){openSheet('<h3>AI 访问密钥</h3><p class="hint">输入 Cloudflare 中 APP_TOKEN 的值。仅保留在当前页面内存中，刷新后需重新输入，不会写入备份或 GitHub。</p><input class="tf" id="aiTokenInput" type="password" autocomplete="off" placeholder="至少32位访问密钥"><div class="row" style="gap:8px;margin-top:12px"><button class="btn" onclick="saveAIToken()">确认</button><button class="btn ghost" onclick="aiToken=\'\';closeSheet();toast(\'密钥已清除\')">清除密钥</button></div>')}
+function saveAIToken(){const token=$('aiTokenInput').value.trim();if(token.length<32){toast('请输入至少32位的密钥');return}aiToken=token;$('aiTokenInput').value='';closeSheet();toast('密钥已设置')}
+async function generateReading(){
+ if(aiBusy)return;if(!aiToken){aiSettings();return}aiBusy=true;renderVirgo();$('aiStatus').textContent='正在请求 AI，请稍候…';
+ const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),90000);
+ try{
+  const context=$('liuriCard').innerText+'\n太阳星座：巨蟹座。请给出今天的传统文化娱乐性解读。';
+  const response=await fetch(AI_URL,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+aiToken},body:JSON.stringify({context}),signal:controller.signal});
+  const data=await response.json();if(!response.ok)throw Error(data.error||'接口暂时不可用');if(typeof data.text!=='string'||!data.text.trim())throw Error('没有收到解读文本');
+  aiResult=data;$('aiText').textContent=data.text;$('aiMeta').textContent='模型：'+data.model+' · 生成于 '+new Date(data.generatedAt).toLocaleString('zh-CN',{timeZone:'Asia/Shanghai'});$('aiStatus').textContent='生成完成';
+ }catch(e){$('aiStatus').textContent=e.name==='AbortError'?'请求超时，请稍后重试。':e instanceof TypeError?'连接失败，请检查网络或接口的跨域设置。':e.message}
+ finally{clearTimeout(timer);aiBusy=false;$('aiGenerate').disabled=false;$('aiGenerate').textContent='生成今日 AI 解读'}
 }
 document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.v)));
 go('home');
