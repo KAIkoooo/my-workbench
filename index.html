@@ -1,0 +1,62 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#534AB7"><title>我的工作台</title><link rel="manifest" href="manifest.json"><link rel="icon" href="icons/icon-192.png"><link rel="stylesheet" href="style.css"></head><body><header id="topbar"><h1 id="pageTitle">我的工作台</h1><button onclick="openSettings()" aria-label="设置">⚙️</button></header><div id="app">  <div class="view on" id="v-home">
+    <div class="card hero">
+      <div class="row" style="justify-content:space-between">
+        <div><b id="homeDate" style="font-size:16px"></b><div class="meta" id="homeSub">早上好，今天也要加油</div></div>
+        <div class="pill">♋ 巨蟹座</div>
+      </div>
+      <div class="wx" id="wxBox">
+        <div class="wx-l" onclick="openWx()">
+          <div class="wx-ic" id="wxIcon">⏳</div>
+          <div class="wx-main">
+            <div class="wx-t"><b id="wxTemp">--</b><span id="wxTxt">天气加载中…</span></div>
+            <div class="wx-sub" id="wxSub">湿度 -- · -- 风</div>
+          </div>
+        </div>
+        <div class="wx-r">
+          <button class="wx-city" onclick="openCityPicker()" id="wxCity">📍 定位中</button>
+          <button class="wx-more" onclick="openWx()">未来五天 ›</button>
+        </div>
+      </div>
+    </div>
+    <div class="card cal2" id="calCard"></div>
+    <div class="card virgo" id="virgoCard"></div>
+    <div class="card liuri" id="liuriCard"></div>
+  </div>
+
+  <div class="view" id="v-fit">
+    <div class="card">
+      <div class="chips" id="fitTypes"></div>
+      <div id="fitForm">
+        <div class="row" style="margin-top:10px">
+          <input class="tf" id="fitMin" type="number" inputmode="numeric" placeholder="时长(分钟)" style="flex:1">
+          <input class="tf" id="fitNote" placeholder="备注(可选)" style="flex:1.4">
+          <button class="btn" onclick="addFit()">打卡</button>
+        </div>
+        <p class="hint" style="text-align:left">记录跑步和骑行，保持自己的节奏。</p>
+      </div>
+      <div id="metroSection" style="display:none">
+        <div class="row" style="margin-top:10px;gap:6px"><input class="tf" id="metroFrom" placeholder="起点站（输入中文）" autocomplete="off" oninput="metroSuggest('from')" onfocus="metroSuggest('from')"><input class="tf" id="metroTo" placeholder="终点站" autocomplete="off" oninput="metroSuggest('to')" onfocus="metroSuggest('to')"></div>
+        <div id="metroSug" class="metro-sug"></div>
+        <div class="row" style="margin-top:8px;gap:6px"><button class="btn" onclick="metroSearch()">查 询</button><button class="btn ghost" onclick="metroClear()">清 除</button><span class="meta" style="margin-left:auto;font-size:11.5px">地图可双指缩放、拖动</span></div>
+        <div id="metroResult"></div>
+        <div class="metro-map-hd">互动线路图 · 查询后自动高亮路线</div>
+        <div class="metro-canvas" id="metroCanvas2"><svg id="metroSvg" xmlns="http://www.w3.org/2000/svg"></svg></div>
+        <div class="metro-ctrl"><button class="btn ghost sm" onclick="metroZoomSvg(1.25)">＋</button><button class="btn ghost sm" onclick="metroZoomSvg(0.8)">－</button><button class="btn ghost sm" onclick="metroFitViewSvg()">⌂ 居中</button><span class="meta" style="margin-left:auto">16 线 / 317 站 · 双指缩放、拖动</span></div>
+        <div class="card" style="margin-top:14px;padding:10px 10px 12px">
+          <div class="metro-map-hd" style="padding:0 0 2px">官方线网图</div>
+          <div class="metro-canvas" id="metroCanvas"><img id="metroImg" src="metro/sz_map.jpg" alt="深圳地铁线路图" draggable="false" onload="if(typeof metroFitView==='function')metroFitView()"></div>
+          <div class="metro-ctrl"><button class="btn ghost sm" onclick="metroZoom(1.25)">＋</button><button class="btn ghost sm" onclick="metroZoom(0.8)">－</button><button class="btn ghost sm" onclick="metroFitView()">⌂ 居中</button><span class="meta" style="margin-left:auto">来源：深圳市交通运输局官网</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="stat4" id="fitStats">
+      <div class="s"><b id="fsWeek">0</b><span>本周分钟</span></div>
+      <div class="s"><b id="fsCnt">0</b><span>本月次数</span></div>
+      <div class="s"><b id="fsStreak">0</b><span>连续天数</span></div>
+      <div class="s"><b id="fsCoin">0</b><span>累计分钟</span></div>
+    </div>
+    <div class="card" id="fitWeek"></div>
+    <div class="card" id="fitList"></div>
+  </div>
+
+<div class="view" id="v-profile"><div class="card"><b>个人学术主页</b><p class="hint">你的研究、成果与个人介绍。</p><a class="btn" href="personal-homepage/index.html" target="_blank" rel="noopener">完整打开 ↗</a></div><iframe id="profileFrame" title="个人学术主页" data-src="personal-homepage/index.html"></iframe></div><div class="view" id="v-chatgpt"><div class="card chat-card"><div class="chat-mark">✦</div><h2>ChatGPT</h2><p>写作、学习、讨论，随时开始新的对话。</p><a class="btn" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">打开 ChatGPT 网页版 ↗</a><p class="hint">在官方网页中登录你的账号。此工作台不读取账号或聊天内容。</p></div></div></div><nav><button data-v="home" class="on"><span class="ic">🏠</span>首页</button><button data-v="fit"><span class="ic">🚇</span>出行</button><button data-v="profile"><span class="ic">👤</span>个人主页</button><button data-v="chatgpt"><span class="ic">✦</span>ChatGPT</button></nav><div class="toast" id="toast"></div><div class="sheet" id="sheet" onclick="if(event.target===this)closeSheet()"><div class="inner" id="sheetBody"></div></div><script src="vendor/lunar.js"></script><script src="app.js"></script></body></html>

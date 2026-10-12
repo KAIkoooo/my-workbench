@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="个人学术主页">
+    <title>个人学术主页</title>
+    <link rel="icon" href="assets/favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+    <script>
+      (function () {
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = "styles.css?ts=" + Date.now();
+        document.head.appendChild(link);
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="navbar" id="site-header">
+      <button class="sidebar-button" id="menu-button" type="button" aria-label="打开导航" aria-expanded="false">
+        <svg viewBox="0 0 448 512" aria-hidden="true">
+          <path d="M436 124H12c-6.6 0-12-5.4-12-12V80c0-6.6 5.4-12 12-12h424c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12Zm0 160H12c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h424c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12Zm0 160H12c-6.6 0-12-5.4-12-12v-32c0-6.6 5.4-12 12-12h424c6.6 0 12 5.4 12 12v32c0 6.6-5.4 12-12 12Z"/>
+        </svg>
+      </button>
+      <a class="home-link" href="#home" id="brand-name">个人学术主页</a>
+      <nav class="nav-links" id="primary-nav" aria-label="主导航">
+        <a href="#home">Home</a>
+        <a href="#overview">Overview</a>
+        <a href="#publications">Publications</a>
+        <a href="#honors">Honors</a>
+        <a href="#interests">Interests</a>
+        <a href="#guestbook">Guestbook</a>
+      </nav>
+    </header>
+
+    <main class="page" id="app"></main>
+
+    <script>
+      (function () {
+        ["site.config.js", "app.js"].forEach(function (src) {
+          var script = document.createElement("script");
+          script.async = false;
+          script.src = src + "?ts=" + Date.now();
+          document.body.appendChild(script);
+        });
+      })();
+    </script>
+  </body>
+</html>
